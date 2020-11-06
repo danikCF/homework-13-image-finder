@@ -1,3 +1,5 @@
+import refs from "./refs";
+
 export default{
   _query:'',
   page: 1,
@@ -17,7 +19,10 @@ async toGetFetch() {
   set query(value){
     return this._query = value;
   },
+  resetPage(){
+    return this.page = 1;
+  },
    setPage (){
     return this.page +=1 ;
   }
-} 
+}
