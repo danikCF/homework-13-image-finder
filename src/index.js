@@ -7,30 +7,45 @@ import { data } from "autoprefixer";
 
 refs.search.addEventListener('input', debounce ((e)=>{
   if(e.target.value=== ''){
+    refs.button.classList.add('is-hidden');
     refs.gallery.innerHTML = '';
+
     return;
   }
-apiService.query = e.target.value ;
+apiService.query = e.target.value;
 apiService.resetPage();
+refs.button.classList.remove('is-hidden');
 apiService.toGetFetch().then(data =>{
+
   refs.gallery.innerHTML = templateGallery(data);
+  windowScroll();
 })
 
 },500))
 
 
-  refs.button.addEventListener('click', ()=>{
-    window.scrollTo({
-      top: 400,
-      left: 0,
-      behavior: 'smooth'
-    });
+  refs.button.addEventListener('click', ()=> {
     apiService.setPage();
-    apiService.toGetFetch().then(data =>
-      refs.gallery.insertAdjacentHTML('beforeend', templateGallery(data)))
-      if (data.length < 12 ){
-        refs.button.hidden = true;
-      }
+    apiService.toGetFetch().then(data => {
+      emptyResponse(data);
+      refs.gallery.insertAdjacentHTML('beforeend', templateGallery(data))
+      windowScroll();
+    })
     });
 
-
+    function emptyResponse (data) {
+      if(data.length < 12){
+        refs.button.classList.add('is-hidden');
+      }else if (data.length === 0){
+        refs.button.classList.add('is-hidden');
+      }else {
+        refs.button.classList.remove('is-hidden');
+      }
+    }
+    function windowScroll(){
+      window.scrollTo({
+        top: document.documentElement.clientHeight,
+        left: 0,
+        behavior: 'smooth'
+      });
+    }
