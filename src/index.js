@@ -16,7 +16,7 @@ apiService.query = e.target.value;
 apiService.resetPage();
 refs.button.classList.remove('is-hidden');
 apiService.toGetFetch().then(data =>{
-
+  emptyResponse(data);
   refs.gallery.innerHTML = templateGallery(data);
   windowScroll();
 })
@@ -36,8 +36,6 @@ apiService.toGetFetch().then(data =>{
     function emptyResponse (data) {
       if(data.length < 12){
         refs.button.classList.add('is-hidden');
-      }else if (data.length === 0){
-        refs.button.classList.add('is-hidden');
       }else {
         refs.button.classList.remove('is-hidden');
       }
@@ -45,7 +43,6 @@ apiService.toGetFetch().then(data =>{
     function windowScroll(){
       window.scrollTo({
         top: document.documentElement.clientHeight,
-        left: 0,
         behavior: 'smooth'
       });
     }
