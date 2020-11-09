@@ -42,7 +42,7 @@ apiService.toGetFetch().then(data =>{
     }
     function windowScroll(){
       window.scrollTo({
-        top: document.documentElement.clientHeight,
-        behavior: 'smooth'
-      });
+        top: document.body.scrollHeight,
+        behavior: 'smooth',
+        });
     }
